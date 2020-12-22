@@ -17,14 +17,15 @@ node* newNode(int key){
     n->left = NULL;
     n->right = NULL;
     n->father = NULL;
-    n->height = 1;
+    n->bal = 1;
 
     return n;
 }
 
+// Retorna a altura do nodo contando a partir das suas folhas, retorna 0 caso nulo
 int height(node* n){
     if(n)
-        return n->height;
+        return n->bal;
 
     return 0;
 }
@@ -48,7 +49,8 @@ node* rotR(node* root){
 
     node* left = root->left;
     node* left_bigChild = left->right;
-    
+
+    // Rota os nodos e atualiza seus pais    
     left->right = root;
     if(left->right)
         left->right->father = left;
@@ -58,8 +60,8 @@ node* rotR(node* root){
         root->left->father = root;
 
     // Atualiza as alturas dos nodos rotados
-    root->height = max(height(root->left), height(root->right)) + 1;
-    left->height = max(height(left->left), height(left->right)) + 1;
+    root->bal = max(height(root->left), height(root->right)) + 1;
+    left->bal = max(height(left->left), height(left->right)) + 1;
 
     return left;
 }
@@ -71,6 +73,7 @@ node* rotL(node* root){
     node* right = root->right;
     node* right_smallChild = right->left;
 
+    // Rota os nodos e atualiza seus pais
     right->left = root;
     if(right->left)
         right->left->father = right;
@@ -80,14 +83,14 @@ node* rotL(node* root){
         root->right->father = root;
 
     // Atualiza as alturas dos nodos rotados
-    root->height = max(height(root->left), height(root->right)) + 1;
-    right->height = max(height(right->left), height(right->right)) + 1;
+    root->bal = max(height(root->left), height(root->right)) + 1;
+    right->bal = max(height(right->left), height(right->right)) + 1;
    
     return right;
 }
 
 node* rebalance(node* root){
-    root->height = max(height(root->left), height(root->right)) + 1;
+    root->bal = max(height(root->left), height(root->right)) + 1;
 
     int bal = balance(root);
 

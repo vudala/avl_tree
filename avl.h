@@ -2,11 +2,11 @@
 #define AVL_INCLUDED
 
 typedef struct avl_node {
-    int key;
-    int height;
-    struct avl_node* left;
-    struct avl_node* right;
-    struct avl_node* father;
+    int key; // Chave
+    int bal; // Fator de balanceamento
+    struct avl_node* left; // Filho da esquerda
+    struct avl_node* right; // Filho da direita
+    struct avl_node* father; // Pai
 } node;
 
 node* insert(node* root, int key);
@@ -16,8 +16,6 @@ node* delete(node* root, int key);
 void navigate(node* root, int value);
 
 void destroy(node* root);
-
-int height(node* n);
 
 void mustAlloc(void* ptr, const char* description);
 
