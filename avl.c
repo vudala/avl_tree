@@ -156,10 +156,12 @@ node* delete(node* root, int key){
         if(!root->left || !root->right){
             node* aux = root->left ? root->left : root->right;
             if(!aux){ // 0 filhos
-                if(root->father->key > root->key)
-                    root->father->left = NULL;
-                else
-                    root->father->right = NULL;
+                if (root->father){
+                    if(root->father->key > root->key)
+                        root->father->left = NULL;
+                    else
+                        root->father->right = NULL;
+                }
 
                 free(root);
                 root = NULL;
